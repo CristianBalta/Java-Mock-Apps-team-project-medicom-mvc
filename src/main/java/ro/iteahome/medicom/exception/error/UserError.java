@@ -1,4 +1,4 @@
-package ro.iteahome.nhs.adminui.exception.error;
+package ro.iteahome.medicom.exception.error;
 
 public class UserError {
 
