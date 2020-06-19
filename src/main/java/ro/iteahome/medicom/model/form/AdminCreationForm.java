@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class AdminForm { // TODO: Add mechanism for admins to add new admins.
+public class AdminCreationForm { // TODO: Add mechanism for admins to add new admins.
 
     // NO ID. THE SYSTEM WILL AUTOMATICALLY ASSIGN AN ID TO THE NEW ADMIN.
 
@@ -30,9 +30,13 @@ public class AdminForm { // TODO: Add mechanism for admins to add new admins.
     @Pattern(regexp = "((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,32})", message = "INVALID PASSWORD")
     private String password;
 
+    @NotNull(message = "PASSWORD CANNOT BE EMPTY.")
+    @Pattern(regexp = "((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,32})", message = "INVALID PASSWORD")
+    private String retypedPassword;
+
     // NO STATUS. THE SYSTEM WILL AUTOMATICALLY ASSIGN "ACTIVE" STATUS TO THE NEW ADMIN.
 
-    public AdminForm() {
+    public AdminCreationForm() {
     }
 
     public String getFirstName() {
@@ -73,5 +77,13 @@ public class AdminForm { // TODO: Add mechanism for admins to add new admins.
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRetypedPassword() {
+        return retypedPassword;
+    }
+
+    public void setRetypedPassword(String retypedPassword) {
+        this.retypedPassword = retypedPassword;
     }
 }

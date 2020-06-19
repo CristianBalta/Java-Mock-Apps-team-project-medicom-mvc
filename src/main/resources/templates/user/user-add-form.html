@@ -1,54 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>ADD USER</title>
-</head>
+    <head>
+        <title>ADD USER</title>
+    </head>
 
-<body>
-<p><strong>ADD USER:</strong></p>
-<br>
+    <body>
+        <p><strong>ADD USER:</strong></p>
+        <br>
 
-<form method="POST" th:action="@{/users}" th:object="${user}">
+        <form method="POST" th:action="@{/users}" th:object="${userCreationForm}">
 
-    <label for="firstName">FIRST NAME:</label><br>
-    <input id="firstName" name="firstName" placeholder="FIRST NAME" th:field="*{firstName}" type="text">
-    <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
-    <br>
-    <br>
+            <label for="firstName">FIRST NAME:</label><br>
+            <input id="firstName" name="firstName" placeholder="FIRST NAME" th:field="*{firstName}" type="text">
+            <span th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></span>
+            <br>
+            <br>
 
-    <label for="lastName">LAST NAME:</label><br>
-    <input id="lastName" name="lastName" placeholder="LAST NAME" th:field="*{lastName}" type="text">
-    <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></span>
-    <br>
-    <br>
+            <label for="lastName">LAST NAME:</label><br>
+            <input id="lastName" name="lastName" placeholder="LAST NAME" th:field="*{lastName}" type="text">
+            <span th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></span>
+            <br>
+            <br>
 
-    <label for="cnp">CNP:</label><br>
-    <input id="cnp" name="cnp" placeholder="CNP" th:field="*{cnp}" type="text">
-    <span th:errors="*{cnp}" th:if="${#fields.hasErrors('cnp')}"></span>
-    <br>
-    <br>
+            <label for="cnp">CNP:</label><br>
+            <input id="cnp" name="cnp" placeholder="CNP" th:field="*{cnp}" type="text">
+            <span th:errors="*{cnp}" th:if="${#fields.hasErrors('cnp')}"></span>
+            <br>
+            <br>
 
-    <label for="licenseNo">MEDICAL/NURSING LICENSE NUMBER (FOR INITIAL VERIFICATION ONLY):</label><br>
-    <input id="licenseNo" name="licenseNo" placeholder="LICENSE NUMBER" th:field="*{cnp}" type="text">
-    <span th:errors="*{licenseNo}" th:if="${#fields.hasErrors('cnp')}"></span>
-    <br>
-    <br>
+            <label for="licenseNo">MEDICAL/NURSING LICENSE NUMBER:</label><br>
+            <input id="licenseNo" name="licenseNo" placeholder="LICENSE NUMBER" th:field="*{licenseNo}" type="text">
+            <span th:errors="*{licenseNo}" th:if="${#fields.hasErrors('licenseNo')}"></span>
+            <br>
+            <br>
 
-    <!-- TODO: Add role selection drop-down an populate it from UserRoles enum. -->
+            <label for="role">CHOOSE A ROLE:</label><br>
+            <select id="role" name="role" th:field="*{role}" typeof="text">
+                <option value="DOCTOR">DOCTOR</option>
+                <option value="NURSE">NURSE</option>
+            </select>
+            <br>
+            <br>
 
-    <label for="email">EMAIL:</label><br>
-    <input id="email" name="email" placeholder="EMAIL" th:field="*{email}" type="email">
-    <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
-    <br>
-    <br>
+            <label for="email">EMAIL:</label><br>
+            <input id="email" name="email" placeholder="EMAIL" th:field="*{email}" type="email">
+            <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+            <br>
+            <br>
 
-    <label for="password">PASSWORD:</label><br>
-    <input id="password" name="password" placeholder="PASSWORD" th:field="*{password}" type="password">
-    <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
-    <br>
-    <br>
+            <label for="password">PASSWORD:</label><br>
+            <input id="password" name="password" placeholder="PASSWORD" th:field="*{password}" type="password">
+            <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
+            <br>
+            <br>
 
-    <input type="submit" value="ADD USER">
-</form>
-</body>
+            <label for="retypedPassword">RETYPE PASSWORD:</label><br>
+            <input id="retypedPassword" name="retypedPassword" placeholder="PASSWORD" th:field="*{retypedPassword}"
+                   type="password">
+            <!-- TODO: develop a password-matching constraint. -->
+            <span th:errors="*{retypedPassword}" th:if="${#fields.hasErrors('retypedPassword')}"></span>
+            <br>
+            <br>
+
+            <input type="submit" value="ADD USER">
+        </form>
+    </body>
 </html>

@@ -23,7 +23,8 @@ public class User {
     @Column(name = "cnp", nullable = false, updatable = false, unique = true, columnDefinition = "VARCHAR(13)")
     private String cnp;
 
-    // NO LICENSE NUMBER. THAT INFORMATION IS ONLY USED FOR INITIAL VERIFICATION.
+    @Column(name = "license_number", nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
+    private String licenseNo;
 
     @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(5)")
     private UserRole role;
@@ -35,10 +36,13 @@ public class User {
     private String password;
 
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(8)")
-    private UserStatus status; // TODO: Add mechanism for admins to change any user's status to INACTIVE.
+    private UserStatus status;
+    // TODO: Add mechanism for admins to change any user's status to INACTIVE.
+
+    // NO RETYPED PASSWORD.
 
     public User() {
-        this .status = UserStatus.ACTIVE;
+        this.status = UserStatus.ACTIVE;
     }
 
     public int getId() {

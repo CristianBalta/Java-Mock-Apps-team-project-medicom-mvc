@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class UserForm { // TODO: Add a sign up process using this form.
+public class UserCreationForm { // TODO: Add a sign up process using this form.
 
     // NO ID. THE SYSTEM WILL AUTOMATICALLY ASSIGN AN ID TO THE NEW USER.
 
@@ -21,8 +21,7 @@ public class UserForm { // TODO: Add a sign up process using this form.
     private String cnp;
 
     @NotNull(message = "MEDICAL/NURSING LICENSE NUMBER CANNOT BE EMPTY.")
-    private String licenseNo; // FOR VERIFICATION PURPOSES. NOT PERSISTED IN MEDICOM.
-    // TODO: Add mechanism to check [cnp + licenseNo] against the chosen role's NHS database to confirm professional identity.
+    private String licenseNo;
 
     @NotNull(message = "ROLE CANNOT BE EMPTY.")
     private UserRole role;
@@ -35,9 +34,14 @@ public class UserForm { // TODO: Add a sign up process using this form.
     @Pattern(regexp = "((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,32})", message = "INVALID PASSWORD")
     private String password;
 
+    @NotNull(message = "PASSWORD CANNOT BE EMPTY.")
+    @Pattern(regexp = "((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,32})", message = "INVALID PASSWORD")
+    private String retypedPassword;
+    // TODO: Add mechanism to check if the two passwords match.
+
     // NO STATUS. THE SYSTEM WILL AUTOMATICALLY ASSIGN "ACTIVE" STATUS TO THE NEW USER.
 
-    public UserForm() {
+    public UserCreationForm() {
     }
 
     public String getFirstName() {
@@ -94,5 +98,13 @@ public class UserForm { // TODO: Add a sign up process using this form.
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRetypedPassword() {
+        return retypedPassword;
+    }
+
+    public void setRetypedPassword(String retypedPassword) {
+        this.retypedPassword = retypedPassword;
     }
 }
