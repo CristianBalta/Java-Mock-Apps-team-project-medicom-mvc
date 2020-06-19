@@ -2,7 +2,6 @@ package ro.iteahome.medicom.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ro.iteahome.medicom.exception.business.NotNhsRegisteredDoctorOrNurseException;
@@ -15,18 +14,17 @@ public class UserService {
 
 // DEPENDENCIES: -------------------------------------------------------------------------------------------------------
 
-    //    private final String DOCTORS_URL = "https://nhsbackendstage.myserverapps.com/doctors";
-    private final String DOCTORS_URL = "http://localhost:8081/doctors";
-    //    private final String NURSES_URL = "https://nhsbackendstage.myserverapps.com/doctors";
-    private final String NURSES_URL = "http://localhost:8081/doctors";
+    private final String DOCTORS_URL = "https://nhsbackendstage.myserverapps.com/doctors";
+    private final String NURSES_URL = "https://nhsbackendstage.myserverapps.com/doctors";
+
     @Autowired
     ModelMapper modelMapper;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private RestTemplate restTemplate;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
 // C.R.U.D. METHODS: ---------------------------------------------------------------------------------------------------
 

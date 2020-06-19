@@ -56,13 +56,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- SECURITY DEPENDENCIES: -->
-
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-		</dependency>
-
 		<!-- MODEL MAPPING DEPENDENCIES: -->
 
 		<dependency>
@@ -70,8 +63,6 @@
 			<artifactId>modelmapper</artifactId>
 			<version>2.3.7</version>
 		</dependency>
-
-
 
     </dependencies>
 

@@ -25,6 +25,6 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
 
     @ExceptionHandler(NotNhsRegisteredDoctorOrNurseException.class)
     public ResponseEntity<UserError> handleNotNhsRegisteredDoctorException(NotNhsRegisteredDoctorOrNurseException ex) {
-        return new ResponseEntity<>(new UserError("DOC-01", ex.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new UserError("DOC-01", ex.getMessage()), HttpStatus.EXPECTATION_FAILED);
     }
 }
