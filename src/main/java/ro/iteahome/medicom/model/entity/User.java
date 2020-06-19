@@ -4,9 +4,6 @@ import ro.iteahome.medicom.model.reference.UserRole;
 import ro.iteahome.medicom.model.reference.UserStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
@@ -17,25 +14,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull(message = "EMAIL CANNOT BE EMPTY.")
-    @Email(regexp = ".+@.+\\.\\w+", message = "INVALID EMAIL ADDRESS")
-    @Column(name = "email", nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
-    private String email;
+    @Column(name = "first_name", nullable = false, columnDefinition = "VARCHAR(50)")
+    private String firstName;
 
-    @NotNull(message = "PASSWORD CANNOT BE EMPTY.")
-    @Pattern(regexp = "((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,32})", message = "INVALID PASSWORD")
-    @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(32)")
-    private String password;
+    @Column(name = "last_name", nullable = false, columnDefinition = "VARCHAR(50)")
+    private String lastName;
 
-    @NotNull(message = "ROLE CANNOT BE EMPTY.")
+    @Column(name = "cnp", nullable = false, updatable = false, unique = true, columnDefinition = "VARCHAR(13)")
+    private String cnp;
+
+    // NO LICENSE NUMBER. THAT INFORMATION IS ONLY USED FOR INITIAL VERIFICATION.
+
     @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(5)")
     private UserRole role;
 
-    @NotNull(message = "STATUS CANNOT BE EMPTY.")
+    @Column(name = "email", nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
+    private String email;
+
+    @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(32)")
+    private String password;
+
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(8)")
-    private UserStatus status;
+    private UserStatus status; // TODO: Add mechanism for admins to change any user's status to INACTIVE.
 
     public User() {
+        this .status = UserStatus.ACTIVE;
     }
 
     public int getId() {
@@ -44,6 +47,38 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCnp() {
+        return cnp;
+    }
+
+    public void setCnp(String cnp) {
+        this.cnp = cnp;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public String getEmail() {
@@ -60,14 +95,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 
     public UserStatus getStatus() {
