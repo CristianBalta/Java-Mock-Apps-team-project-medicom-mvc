@@ -8,7 +8,7 @@
         <p><strong>LOG IN:</strong></p>
         <br>
 
-        <form method="POST" th:action="@{/user-context}" th:object="${userCredentialsForm}">
+        <form method="POST" th:action="@{/session/login-credentials}" th:object="${userCredentialsForm}">
 
             <label for="email">EMAIL:</label><br>
             <input id="email" name="email" placeholder="EMAIL" th:field="*{email}" type="email">
@@ -24,5 +24,10 @@
 
             <input type="submit" value="LOG IN">
         </form>
+        <br>
+        <br>
+
+        <a href="/index.html">GO BACK</a>
+
     </body>
 </html>

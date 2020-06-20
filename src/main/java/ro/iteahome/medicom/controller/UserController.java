@@ -27,9 +27,9 @@ public class UserController {
 
 // LINK "GET" REQUESTS: ------------------------------------------------------------------------------------------------
 
-    @GetMapping("/add-form")
+    @GetMapping("/signup-form")
     public String showUserAddForm(UserCreationForm userCreationForm) {
-        return "user/user-add-form";
+        return "user/signup-form";
     }
 
     @GetMapping("/admins/add-form")
@@ -46,7 +46,7 @@ public class UserController {
     @PostMapping
     public ModelAndView add(@Valid UserCreationForm userCreationForm) {
         userService.add(userCreationForm);
-        ModelAndView loginMV = new ModelAndView("login.html");
+        ModelAndView loginMV = new ModelAndView("session/login-form");
         UserCredentialsForm userCredentialsForm = modelMapper.map(userCreationForm, UserCredentialsForm.class);
         loginMV.addObject(userCredentialsForm);
         return loginMV;

@@ -5,9 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ro.iteahome.medicom.exception.business.NotNhsRegisteredDoctorOrNurseException;
+import ro.iteahome.medicom.exception.business.UserNotFoundException;
 import ro.iteahome.medicom.model.entity.User;
 import ro.iteahome.medicom.model.form.UserCreationForm;
 import ro.iteahome.medicom.repository.UserRepository;
+import ro.iteahome.medicom.security.UserContext;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -40,6 +44,22 @@ public class UserService {
     }
 
 // OTHER METHODS: ------------------------------------------------------------------------------------------------------
+
+    public void logIn(String email, String password) {
+        Optional<User> optionalUser = userRepository.findByEmailAndPassword(email, password);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            UserContext.setLoggedInUser(user);
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
+    // TODO: Actually develop a secure log in method.
+
+    public void signOut() {
+        UserContext.setLoggedInUser(null);
+    }
+    // TODO: Actually develop a secure sign out method.
 
     private Boolean isNhsRegistered(UserCreationForm userCreationForm) {
         Boolean isNhsRegistered;

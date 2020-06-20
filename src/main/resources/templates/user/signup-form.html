@@ -35,9 +35,10 @@
             <br>
 
             <label for="role">CHOOSE A ROLE:</label><br>
-            <select id="role" name="role" th:field="*{role}" typeof="text">
+            <select id="role" name="role" th:field="*{role}">
                 <option value="DOCTOR">DOCTOR</option>
                 <option value="NURSE">NURSE</option>
+            <!-- TODO: Figure out why this field persists the option's index instead of its value. -->
             </select>
             <br>
             <br>
@@ -57,12 +58,17 @@
             <label for="retypedPassword">RETYPE PASSWORD:</label><br>
             <input id="retypedPassword" name="retypedPassword" placeholder="PASSWORD" th:field="*{retypedPassword}"
                    type="password">
-            <!-- TODO: develop a password-matching constraint. -->
+            <!-- TODO: Develop a password-matching constraint. -->
             <span th:errors="*{retypedPassword}" th:if="${#fields.hasErrors('retypedPassword')}"></span>
             <br>
             <br>
 
             <input type="submit" value="ADD USER">
+            <br>
+            <br>
+
+            <a href="/index.html">GO BACK</a>
+
         </form>
     </body>
 </html>

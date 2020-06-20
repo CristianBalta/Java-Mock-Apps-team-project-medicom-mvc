@@ -35,11 +35,11 @@ public class User {
     @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(32)")
     private String password;
 
+    // NO RETYPED PASSWORD.
+
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(8)")
     private UserStatus status;
     // TODO: Add mechanism for admins to change any user's status to INACTIVE.
-
-    // NO RETYPED PASSWORD.
 
     public User() {
         this.status = UserStatus.ACTIVE;
@@ -75,6 +75,14 @@ public class User {
 
     public void setCnp(String cnp) {
         this.cnp = cnp;
+    }
+
+    public String getLicenseNo() {
+        return licenseNo;
+    }
+
+    public void setLicenseNo(String licenseNo) {
+        this.licenseNo = licenseNo;
     }
 
     public UserRole getRole() {
