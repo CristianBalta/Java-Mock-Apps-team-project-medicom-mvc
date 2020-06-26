@@ -1,33 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>LOG IN</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Medicom Sign In</title>
+    <link rel="shortcut icon" type="image/png" href="../../assets/brand/m.png">
 
-    <body>
-        <p><strong>LOG IN:</strong></p>
-        <br>
 
-        <form method="POST" th:action="@{/session/login-credentials}" th:object="${userCredentialsForm}">
+    <!-- Bootstrap core CSS -->
+    <link href="../../assets/dist/css/bootstrap.css" rel="stylesheet">
 
-            <label for="email">EMAIL:</label><br>
-            <input id="email" name="email" placeholder="EMAIL" th:field="*{email}" type="email">
-            <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
-            <br>
-            <br>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-            <label for="password">PASSWORD:</label><br>
-            <input id="password" name="password" placeholder="PASSWORD" th:field="*{password}" type="password">
-            <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
-            <br>
-            <br>
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="login-form.css" rel="stylesheet">
+</head>
 
-            <input type="submit" value="LOG IN">
-        </form>
-        <br>
-        <br>
+<body class="text-center">
+<br>
 
-        <a href="/index.html">GO BACK</a>
 
-    </body>
+<form class="form-signin" method="POST" th:action="@{/session/login-credentials}" th:object="${userCredentialsForm}">
+
+    <img class="mb-4" src="../../assets/brand/m.svg" alt="" width="156" height="156">
+    <h1 class="h3 mb-3 font-weight-normal">Sign in form</h1>
+
+    <div class="form-label-group">
+        <input id="email" name="email" placeholder="Email" th:field="*{email}" type="email" class="form-control"
+               placeholder="Email address" autofocus>
+        <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+        <label for="email">Email address</label>
+    </div>
+
+    <div class="form-label-group">
+        <input type="password" id="password" class="form-control" placeholder="Password" th:field="*{password}">
+        <span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
+        <label for="password">Password</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+
+    <br><br>
+    <a href="../../static/index.html" class="btn btn-lg btn-secondary btn-block">Go back</a>
+    <br><br>
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+
+</form>
+
+</body>
 </html>
