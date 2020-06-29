@@ -30,7 +30,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- SPRING MVC DEPENDENCIES: -->
+		<!-- FRONTEND DEPENDENCIES: -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,10 +50,17 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- SECURITY DEPENDENCIES: -->
+
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<version>3.0.4.RELEASE</version>
 		</dependency>
 
 		<!-- MODEL MAPPING DEPENDENCIES: -->
@@ -64,6 +71,6 @@
 			<version>2.3.7</version>
 		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 </project>

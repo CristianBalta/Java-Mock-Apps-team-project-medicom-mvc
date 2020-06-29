@@ -4,27 +4,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import ro.iteahome.medicom.exception.business.NotNhsRegisteredDoctorOrNurseException;
-import ro.iteahome.medicom.exception.business.UserAlreadyExistsException;
-import ro.iteahome.medicom.exception.business.UserNotFoundException;
-import ro.iteahome.medicom.exception.error.UserError;
+import ro.iteahome.medicom.exception.business.GlobalAlreadyExistsException;
+import ro.iteahome.medicom.exception.business.GlobalNotFoundException;
+import ro.iteahome.medicom.exception.business.NotNhsRegisteredException;
+import ro.iteahome.medicom.exception.error.GlobalError;
 
 public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
 //  USER EXCEPTIONS: ---------------------------------------------------------------------------------------------------
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<UserError> handleUserNotFoundException(UserNotFoundException ex) {
-        return new ResponseEntity<>(new UserError("USR-01", ex.getMessage()), HttpStatus.NOT_FOUND);
+    @ExceptionHandler(GlobalNotFoundException.class)
+    public ResponseEntity<GlobalError> handleGlobalNotFoundException(GlobalNotFoundException ex) {
+        return new ResponseEntity<>(new GlobalError(ex.getRestEntity().substring(0, 3) + "-01", ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<UserError> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
-        return new ResponseEntity<>(new UserError("USR-02", ex.getMessage()), HttpStatus.CONFLICT);
+    @ExceptionHandler(GlobalAlreadyExistsException.class)
+    public ResponseEntity<GlobalError> handleGlobalAlreadyExistsException(GlobalAlreadyExistsException ex) {
+        return new ResponseEntity<>(new GlobalError(ex.getEntityName().substring(0, 3) + "-02", ex.getMessage()), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(NotNhsRegisteredDoctorOrNurseException.class)
-    public ResponseEntity<UserError> handleNotNhsRegisteredDoctorException(NotNhsRegisteredDoctorOrNurseException ex) {
-        return new ResponseEntity<>(new UserError("DOC-01", ex.getMessage()), HttpStatus.EXPECTATION_FAILED);
+    @ExceptionHandler(NotNhsRegisteredException.class)
+    public ResponseEntity<GlobalError> handleNotNhsRegisteredException(NotNhsRegisteredException ex) {
+        return new ResponseEntity<>(new GlobalError("NHS-01", ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 }

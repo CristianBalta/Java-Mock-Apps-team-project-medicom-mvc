@@ -2,12 +2,12 @@ package ro.iteahome.medicom.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ro.iteahome.medicom.model.entity.User;
+import ro.iteahome.medicom.model.entity.Role;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-    Optional<User> findOneByEmail(String email);
+    Optional<Role> findByName(String name);
 }

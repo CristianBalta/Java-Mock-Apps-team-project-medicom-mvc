@@ -1,48 +1,64 @@
 package ro.iteahome.medicom.model.entity;
 
-import ro.iteahome.medicom.model.reference.UserRole;
-import ro.iteahome.medicom.model.reference.UserStatus;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
+
+// FIELDS: -------------------------------------------------------------------------------------------------------------
+
+    @Transient
+    private final String ROLE_PREFIX = "ROLE_";
 
     @Id
     @Column(name = "id", updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "first_name", nullable = false, columnDefinition = "VARCHAR(50)")
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false, columnDefinition = "VARCHAR(50)")
-    private String lastName;
-
-    @Column(name = "cnp", nullable = false, updatable = false, unique = true, columnDefinition = "VARCHAR(13)")
+    @NotEmpty(message = "CNP CANNOT BE EMPTY.")
+    @Pattern(regexp = "[1-8]\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(0[1-9]|[1-4]\\d|5[0-2]|99)\\d{4}", message = "INVALID CNP")
+    @Column(name = "cnp", nullable = false, unique = true, columnDefinition = "VARCHAR(13)")
     private String cnp;
 
-    @Column(name = "license_number", nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
-    private String licenseNo;
-
-    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(5)")
-    private UserRole role;
-
-    @Column(name = "email", nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
+    @NotNull(message = "EMAIL CANNOT BE NULL.")
+    @Email(regexp = ".+@.+\\..+", message = "INVALID EMAIL ADDRESS")
+    @Column(name = "email", nullable = false, unique = true, columnDefinition = "VARCHAR(100)")
     private String email;
 
-    @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(32)")
+    @NotNull(message = "PASSWORD CANNOT BE NULL.")
+    @Pattern(regexp = "((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,100})", message = "INVALID PASSWORD")
+    @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(110)")
     private String password;
 
-    // NO RETYPED PASSWORD.
+    @NotNull(message = "FIRST NAME CANNOT BE EMPTY.")
+    @Column(name = "first_name", nullable = false, columnDefinition = "VARCHAR(100)")
+    private String firstName;
 
-    @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(8)")
-    private UserStatus status;
-    // TODO: Add mechanism for admins to change any user's status to INACTIVE.
+    @NotNull(message = "LAST NAME CANNOT BE EMPTY.")
+    @Column(name = "last_name", nullable = false, columnDefinition = "VARCHAR(100)")
+    private String lastName;
+
+    @Column(name = "status", nullable = false, columnDefinition = "INT")
+    private int status;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role", referencedColumnName = "name", nullable = false)
+    private Role role;
+
+// METHODS: ------------------------------------------------------------------------------------------------------------
 
     public User() {
-        this.status = UserStatus.ACTIVE;
     }
 
     public int getId() {
@@ -51,6 +67,26 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCnp() {
+        return cnp;
+    }
+
+    public void setCnp(String cnp) {
+        this.cnp = cnp;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -69,51 +105,57 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getCnp() {
-        return cnp;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCnp(String cnp) {
-        this.cnp = cnp;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getLicenseNo() {
-        return licenseNo;
-    }
-
-    public void setLicenseNo(String licenseNo) {
-        this.licenseNo = licenseNo;
-    }
-
-    public UserRole getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public String getEmail() {
+// OVERRIDDEN METHODS FROM "UserDetails" INTERFACE: --------------------------------------------------------------------
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + role.getName());
+        return Collections.singletonList(authority);
+    }
+
+    @Override
+    public String getUsername() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    @Override
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public boolean isEnabled() {
+        return status == 1;
     }
 
-    public UserStatus getStatus() {
-        return status;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return status != 3;
     }
 
-    public void setStatus(UserStatus status) {
-        this.status = status;
+    @Override
+    public boolean isAccountNonExpired() {
+        return status != 3;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return status != 4;
     }
 }

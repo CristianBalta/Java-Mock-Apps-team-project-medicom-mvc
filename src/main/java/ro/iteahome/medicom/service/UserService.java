@@ -2,27 +2,22 @@ package ro.iteahome.medicom.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ro.iteahome.medicom.exception.business.NotNhsRegisteredDoctorOrNurseException;
-import ro.iteahome.medicom.exception.business.UserNotFoundException;
+import ro.iteahome.medicom.config.RestUrlConfig;
+import ro.iteahome.medicom.exception.business.NotNhsRegisteredException;
+import ro.iteahome.medicom.model.dto.UserRegistrationDTO;
+import ro.iteahome.medicom.model.entity.Role;
 import ro.iteahome.medicom.model.entity.User;
-import ro.iteahome.medicom.model.form.UserCreationForm;
 import ro.iteahome.medicom.repository.UserRepository;
-import ro.iteahome.medicom.security.UserContext;
-
-import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 // DEPENDENCIES: -------------------------------------------------------------------------------------------------------
-
-    private final String DOCTORS_URL = "https://nhsbackendstage.myserverapps.com/doctors";
-    private final String NURSES_URL = "https://nhsbackendstage.myserverapps.com/doctors";
-
-    @Autowired
-    ModelMapper modelMapper;
 
     @Autowired
     private UserRepository userRepository;
@@ -30,61 +25,54 @@ public class UserService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    ModelMapper modelMapper;
+
+// FIELDS: -------------------------------------------------------------------------------------------------------------
+
+    private final String DOCTORS_URL = RestUrlConfig.SERVER_ROOT_URL + "/doctors";
+    private final String NURSES_URL = RestUrlConfig.SERVER_ROOT_URL + "/nurses";
+
 // C.R.U.D. METHODS: ---------------------------------------------------------------------------------------------------
 
     // TODO: Add CRUD methods for Users.
 
-    public void add(UserCreationForm userCreationForm) {
-        if (isNhsRegistered(userCreationForm)) {
-            User user = modelMapper.map(userCreationForm, User.class);
-            userRepository.save(user);
-        } else {
-            throw new NotNhsRegisteredDoctorOrNurseException();
-        }
+    public void addUser(UserRegistrationDTO userCreationForm) {
+        User user = modelMapper.map(userCreationForm, User.class);
+        user.setStatus(1);
+        setNhsRole(user);
+        userRepository.save(user);
     }
 
 // OTHER METHODS: ------------------------------------------------------------------------------------------------------
 
-    public void logIn(String email, String password) {
-        Optional<User> optionalUser = userRepository.findByEmailAndPassword(email, password);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            UserContext.setLoggedInUser(user);
+    private Boolean isNhsDoctor(String cnp) {
+        return restTemplate.getForObject(DOCTORS_URL + "/existence/by-cnp/" + cnp, Boolean.class);
+    }
+
+    private Boolean isNhsNurse(String cnp) {
+        return restTemplate.getForObject(NURSES_URL + "/existence/by-cnp/" + cnp, Boolean.class);
+    }
+
+    private void setNhsRole(User user) {
+        if (isNhsDoctor(user.getCnp())) {
+            Role role = roleService.findByName("DOCTOR");
+            user.setRole(role);
+        } else if (isNhsNurse(user.getCnp())) {
+            Role role = roleService.findByName("NURSE");
+            user.setRole(role);
         } else {
-            throw new UserNotFoundException();
+            throw new NotNhsRegisteredException();
         }
     }
-    // TODO: Actually develop a secure log in method.
 
-    public void signOut() {
-        UserContext.setLoggedInUser(null);
-    }
-    // TODO: Actually develop a secure sign out method.
+// OVERRIDDEN "UserDetailsService" METHODS: ----------------------------------------------------------------------------
 
-    private Boolean isNhsRegistered(UserCreationForm userCreationForm) {
-        Boolean isNhsRegistered;
-        switch (userCreationForm.getRole()) {
-            case DOCTOR:
-                isNhsRegistered = restTemplate.getForObject(
-                        DOCTORS_URL
-                                .concat("/existence/by-cnp-and-license-number/?cnp=")
-                                .concat(userCreationForm.getCnp())
-                                .concat("&licenseNo=")
-                                .concat(userCreationForm.getLicenseNo()),
-                        Boolean.class);
-                break;
-            case NURSE:
-                isNhsRegistered = restTemplate.getForObject(
-                        NURSES_URL
-                                .concat("/existence/by-cnp-and-license-number/?cnp=")
-                                .concat(userCreationForm.getCnp())
-                                .concat("&licenseNo=")
-                                .concat(userCreationForm.getLicenseNo()),
-                        Boolean.class);
-                break;
-            default:
-                isNhsRegistered = null;
-        }
-        return isNhsRegistered;
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findOneByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
     }
 }

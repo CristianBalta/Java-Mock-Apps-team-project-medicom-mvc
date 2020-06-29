@@ -1,25 +1,28 @@
 package ro.iteahome.medicom.model.dto;
 
-import ro.iteahome.medicom.model.reference.UserRole;
-import ro.iteahome.medicom.model.reference.UserStatus;
+import ro.iteahome.medicom.model.entity.Role;
 
 public class UserDTO {
 
+// FIELDS: -------------------------------------------------------------------------------------------------------------
+
     private int id;
 
-    private String firstName;
-
-    private String lastName;
-
     private String cnp;
-
-    private UserRole role;
 
     private String email;
 
     // NO PASSWORD
 
-    private UserStatus status;
+    private String firstName;
+
+    private String lastName;
+
+    private int status;
+
+    private Role role;
+
+// METHODS: ------------------------------------------------------------------------------------------------------------
 
     public UserDTO() {
     }
@@ -30,6 +33,22 @@ public class UserDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCnp() {
+        return cnp;
+    }
+
+    public void setCnp(String cnp) {
+        this.cnp = cnp;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -48,35 +67,19 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public String getCnp() {
-        return cnp;
-    }
-
-    public void setCnp(String cnp) {
-        this.cnp = cnp;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public UserStatus getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(UserStatus status) {
+    public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
