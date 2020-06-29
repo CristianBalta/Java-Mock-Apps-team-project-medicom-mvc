@@ -2,23 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Sign In</title>
+        <link rel="shortcut icon" type="image/png" href="../static/assets/brand/m.png">
+
+        <!-- Bootstrap core CSS -->
+        <link href="../static/assets/dist/css/bootstrap.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="../static/assets/styles/login-form.css" rel="stylesheet">
+
+        <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        </style>
     </head>
 
-    <body>
-        <form method="POST" th:action="@{/login}">
+    <body class="text-center">
+        <br>
+        <form class="form-signin" method="POST" th:action="@{/login}">
 
-            <h1 th:unless="${param.error}">Please log in:</h1>
-            <h1 th:if="${param.error}">Invalid credentials. Try again:</h1>
+            <img class="mb-4" src="../static/assets/brand/m.svg" alt="logo" width="156" height="156">
+            <h1 class="h3 mb-3 font-weight-normal">Sign in form</h1>
 
             <div class="form-label-group">
                 <label for="username">Email address</label>
-                <input id="username" name="username" type="email" class="form-control" placeholder="Email address" autofocus>
+                <input type="email" id="username" name="username" th:field="*{username}" class="form-control" placeholder="Email address" autofocus>
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{username}"></span>
             </div>
 
             <div class="form-label-group">
                 <label for="password">Password</label>
-                <input id="password" name="apssword" type="password" class="form-control" placeholder="Password">
+                <input type="password" id="password" name="password" th:field="*{password}" class="form-control" placeholder="Password">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             </div>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -28,6 +56,7 @@
             <br><br>
 
             <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+
         </form>
     </body>
 </html>
