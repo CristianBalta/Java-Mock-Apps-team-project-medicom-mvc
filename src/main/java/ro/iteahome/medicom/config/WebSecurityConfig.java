@@ -65,10 +65,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web
                 .ignoring()
-                .antMatchers(
-                        "/assets/brand/**",
-                        "/assets/dist/css/**",
-                        "/assets/dist/js/**",
-                        "/assets/styles/**");
+                .antMatchers();
     }
 }
