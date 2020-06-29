@@ -16,7 +16,6 @@ import ro.iteahome.medicom.service.UserService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
 // DEPENDENCIES: -------------------------------------------------------------------------------------------------------
 
     @Autowired

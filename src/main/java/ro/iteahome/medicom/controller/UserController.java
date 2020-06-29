@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ro.iteahome.medicom.model.dto.UserLoginDTO;
 import ro.iteahome.medicom.model.dto.UserRegistrationDTO;
 import ro.iteahome.medicom.service.UserService;
 
@@ -26,20 +25,10 @@ public class UserController {
 
 // LINK "GET" REQUESTS: ------------------------------------------------------------------------------------------------
 
-//    @GetMapping("/login")
-//    public String showLoginForm(UserLoginDTO userLoginDTO) {
-//        return "login";
-//    }
-
     @GetMapping("/registration")
     public String showUserRegistrationForm(UserRegistrationDTO userRegistrationDTO) {
         return "registration";
     }
-
-//    @GetMapping("/admins/add-form")
-//    public String showAdminAddForm() {
-//        return "user/admin-add-form";
-//    }
 
 // METHODS: ------------------------------------------------------------------------------------------------------------
 

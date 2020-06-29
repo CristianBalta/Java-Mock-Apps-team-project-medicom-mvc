@@ -1,58 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <title>Medicom Sign Up</title>
+        <meta charset="UTF-8">
+        <title>Registration</title>
     </head>
 
     <body>
-
-        <form method="POST" th:action="@{/users}" th:object="${userRegistrationDTO}">
-
-            <h1>Registration form</h1>
-
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" th:field="*{firstName}" placeholder="First Name">
-            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-
-            <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last Name">
-            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-
-            <label for="cnp">CNP</label>
-            <input type="text" id="cnp" th:field="*{cnp}" placeholder="CNP">
-            <span th:if="${#fields.hasErrors('cnp')}" th:errors="*{cnp}"></span>
-
-            <label for="email">Email address</label>
-            <input type="email" id="email" th:field="*{email}" placeholder="Email address">
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-
-            <label for="password">Password</label>
-            <input type="password" id="password" th:field="*{password}" placeholder="Password">
-            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-
-            <label for="retypedPassword">Retype password</label>
-            <input type="password" id="retypedPassword" th:field="*{retypedPassword}" placeholder="Retype password">
-            <span th:if="${#fields.hasErrors('retypedPassword')}" th:errors="*{retypedPassword}" ></span>
-
-            <button type="submit">Sign up</button>
-
-            <br><br>
-            <a href="/">Go back</a>
-            <br><br>
-
-            <p>&copy; 2020</p>
-
-        </form>
+        <p>This is registration.</p>
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-
