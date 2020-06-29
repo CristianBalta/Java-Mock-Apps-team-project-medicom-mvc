@@ -22,6 +22,10 @@ public class UserRegistrationDTO {
     @Pattern(regexp = "((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,100})", message = "INVALID PASSWORD")
     private String password;
 
+    @NotBlank(message = "PASSWORD CANNOT BE NULL.")
+    @Pattern(regexp = "((?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{8,100})", message = "INVALID PASSWORD")
+    private String retypedPassword;
+
     @NotBlank(message = "FIRST NAME CANNOT BE EMPTY.")
     private String firstName;
 
@@ -59,6 +63,14 @@ public class UserRegistrationDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRetypedPassword() {
+        return retypedPassword;
+    }
+
+    public void setRetypedPassword(String retypedPassword) {
+        this.retypedPassword = retypedPassword;
     }
 
     public String getFirstName() {

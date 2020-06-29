@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home-initial", true)
+                .defaultSuccessUrl("/home", true)
                 .and()
 
                 .logout()
@@ -65,6 +65,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web
                 .ignoring()
-                .antMatchers("/**");
+                .antMatchers(
+                        "/assets/brand/**",
+                        "/assets/dist/css/**",
+                        "/assets/dist/js/**",
+                        "/assets/styles/**");
     }
 }
