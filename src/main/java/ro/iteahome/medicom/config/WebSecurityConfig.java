@@ -61,9 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 // WEB SECURITY MANAGEMENT (FOR TEMPLATES): ----------------------------------------------------------------------------
 
     @Override
-    public void configure(WebSecurity web) {
-//        web
-//                .ignoring()
-//                .antMatchers();
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                "/assets/brand/**",
+                "/assets/dist/css/**",
+                "/assets/dist/js/**",
+                "/assets/styles/**");
     }
 }

@@ -71,7 +71,6 @@ public class UserService implements UserDetailsService {
 // OTHER METHODS: ------------------------------------------------------------------------------------------------------
 
     private Boolean isNhsDoctor(String cnp) {
-//        return restTemplate.getForObject(DOCTORS_URL + "/existence/by-cnp/" + cnp, Boolean.class);
         return restTemplate.exchange(
                 DOCTORS_URL + "/existence/by-cnp/" + cnp,
                 HttpMethod.GET,
@@ -80,7 +79,6 @@ public class UserService implements UserDetailsService {
     }
 
     private Boolean isNhsNurse(String cnp) {
-//        return restTemplate.getForObject(NURSES_URL + "/existence/by-cnp/" + cnp, Boolean.class);
         return restTemplate.exchange(
                 NURSES_URL + "/existence/by-cnp/" + cnp,
                 HttpMethod.GET,
