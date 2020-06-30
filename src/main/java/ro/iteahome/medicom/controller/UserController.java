@@ -32,9 +32,9 @@ public class UserController {
 
 // METHODS: ------------------------------------------------------------------------------------------------------------
 
-    @PostMapping
-    public String add(@Valid UserRegistrationDTO userRegistrationDTO) {
+    @PostMapping("/registration")
+    public String addUser(@Valid UserRegistrationDTO userRegistrationDTO) {
         userService.addUser(userRegistrationDTO);
-        return "login";
+        return "home";
     }
 }

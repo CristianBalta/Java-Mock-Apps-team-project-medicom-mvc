@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>Registration</title>
@@ -7,5 +7,47 @@
 
     <body>
         <p>This is registration.</p>
+
+        <form method="POST" th:action="@{/users/registration}" th:object="${userRegistrationDTO}">
+
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" placeholder="First name" th:field="*{firstName}">
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            <br>
+            <br>
+
+            <label for="lastName">Last name</label>
+            <input type="text" id="lastName" placeholder="Last name" th:field="*{lastName}">
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            <br>
+            <br>
+
+            <label for="cnp">CNP</label>
+            <input type="text" id="cnp" placeholder="CNP" th:field="*{cnp}">
+            <span th:if="${#fields.hasErrors('cnp')}" th:errors="*{cnp}"></span>
+            <br>
+            <br>
+
+            <label for="email">Email address</label>
+            <input type="email" id="email" placeholder="Email address" th:field="*{email}">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            <br>
+            <br>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Password" th:field="*{password}">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            <br>
+            <br>
+
+            <label for="retypedPassword">Retype password</label>
+            <input type="password" id="retypedPassword" placeholder="Retype password" th:field="*{retypedPassword}">
+            <span th:if="${#fields.hasErrors('retypedPassword')}" th:errors="*{retypedPassword}"></span>
+            <br>
+            <br>
+
+            <button type="submit">Sign up</button>
+
+        </form>
     </body>
 </html>
