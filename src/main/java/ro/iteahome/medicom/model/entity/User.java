@@ -125,7 +125,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + role.getName());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + getRole().getName());
         return Collections.singletonList(authority);
     }
 
