@@ -9,8 +9,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -52,9 +55,11 @@ public class User implements UserDetails {
     @Column(name = "status", nullable = false, columnDefinition = "INT")
     private int status;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role", referencedColumnName = "name", nullable = false)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
 // METHODS: ------------------------------------------------------------------------------------------------------------
 
@@ -113,20 +118,25 @@ public class User implements UserDetails {
         this.status = status;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public void setRole(Role role) {
-        this.role = role;
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
+        this.setRoles(roles);
     }
 
-// OVERRIDDEN METHODS FROM "UserDetails" INTERFACE: --------------------------------------------------------------------
+    // OVERRIDDEN METHODS FROM "UserDetails" INTERFACE: --------------------------------------------------------------------
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + getRole().getName());
-        return Collections.singletonList(authority);
+        return roles.stream().map(role -> new SimpleGrantedAuthority(ROLE_PREFIX + role.getName())).collect(Collectors.toList());
     }
 
     @Override
