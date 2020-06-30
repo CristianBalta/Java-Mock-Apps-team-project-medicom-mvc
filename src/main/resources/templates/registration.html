@@ -1,56 +1,89 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Registration</title>
+        <link rel="shortcut icon" type="image/png" href="../../assets/brand/m.png">
+
+        <!-- Bootstrap core CSS -->
+        <link href="../../assets/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+        <!-- Custom styles for this template  TODO: Figure out why this is missing and add it, or remove the reference. -->
+        <link href="../../assets/styles/signup-form.css" rel="stylesheet" type="text/css">
+
+        <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        </style>
     </head>
 
-    <body>
-        <p>This is registration.</p>
+    <body class="text-center">
 
-        <form method="POST" th:action="@{/users/registration}" th:object="${userRegistrationDTO}">
+        <form class="form-signup" method="POST" th:action="@{/users/registration}" th:object="${userRegistrationDTO}">
 
-            <label for="firstName">First name</label>
-            <input type="text" id="firstName" placeholder="First name" th:field="*{firstName}">
-            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-            <br>
-            <br>
+            <img class="mb-4" src="../../assets/brand/m.svg" alt="" width="156" height="156">
+            <h1 class="h3 mb-3 font-weight-normal" th:unless="${param.error}">Registration form</h1>
+            <h1 class="h3 mb-3 font-weight-normal" th:if="${param.error}">Try again:</h1>
 
-            <label for="lastName">Last name</label>
-            <input type="text" id="lastName" placeholder="Last name" th:field="*{lastName}">
-            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-            <br>
-            <br>
+            <div class="form-label-group">
+                <input type="text" id="firstName" placeholder="First name" th:field="*{firstName}" class="form-control" autofocus>
+                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                <label for="firstName">First name</label>
+            </div>
 
-            <label for="cnp">CNP</label>
-            <input type="text" id="cnp" placeholder="CNP" th:field="*{cnp}">
-            <span th:if="${#fields.hasErrors('cnp')}" th:errors="*{cnp}"></span>
-            <br>
-            <br>
+            <div class="form-label-group">
+                <input type="text" id="lastName" placeholder="Last name" th:field="*{lastName}" class="form-control">
+                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                <label for="lastName">Last name</label>
+            </div>
 
-            <label for="email">Email address</label>
-            <input type="email" id="email" placeholder="Email address" th:field="*{email}">
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-            <br>
-            <br>
+            <div class="form-label-group">
+                <input type="text" id="cnp" placeholder="CNP" th:field="*{cnp}" class="form-control">
+                <span th:if="${#fields.hasErrors('cnp')}" th:errors="*{cnp}"></span>
+                <label for="cnp">CNP</label>
+            </div>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Password" th:field="*{password}">
-            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-            <br>
-            <br>
+            <div class="form-label-group">
+                <input type="email" id="email" placeholder="Email address" th:field="*{email}" class="form-control">
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                <label for="email">Email address</label>
+            </div>
 
-            <label for="retypedPassword">Retype password</label>
-            <input type="password" id="retypedPassword" placeholder="Retype password" th:field="*{retypedPassword}">
-            <span th:if="${#fields.hasErrors('retypedPassword')}" th:errors="*{retypedPassword}"></span>
-            <br>
-            <br>
+            <div class="form-label-group">
+                <input type="password" id="password" placeholder="Password" th:field="*{password}" class="form-control">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                <label for="password">Password</label>
+            </div>
 
-            <button type="submit">Sign up</button>
+            <div class="form-label-group">
+                <input type="password" id="retypedPassword" placeholder="Retype password" th:field="*{retypedPassword}" class="form-control">
+                <span th:if="${#fields.hasErrors('retypedPassword')}" th:errors="*{retypedPassword}"></span>
+                <label for="retypedPassword">Retype password</label>
+                <!-- TODO: Develop a password-matching constraint. -->
+            </div>
 
-            <br>
-            <a href="/">Go back</a>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+
+            <br><br>
+            <a href="/" class="btn btn-lg btn-secondary btn-block">Go back</a>
+            <br><br>
+
+            <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 
         </form>
+
     </body>
 </html>
