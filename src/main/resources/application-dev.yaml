@@ -1,0 +1,13 @@
+# PERSISTENCE - REMOTE MYSQL DATABASE:
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:46.214.32.248}/medicom
+    username: "medicom"
+    password: "@Medicom@3"
+
+# REST API CONNECTION - REMOTE:
+
+medicom.rest.url: https://nhsbackend.myserverapps.com

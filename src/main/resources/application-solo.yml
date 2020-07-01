@@ -1,0 +1,13 @@
+# PERSISTENCE - LOCAL MYSQL DATABASE:
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/medicom?createDatabaseIfNotExist=true
+    username: "root"
+    password: "P@ssW0rd!"
+
+# REST API CONNECTION - LOCAL:
+
+medicom.rest.url: http://localhost:8081
