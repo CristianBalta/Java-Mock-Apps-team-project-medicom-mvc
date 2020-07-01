@@ -10,4 +10,6 @@ spring:
 
 # REST API CONNECTION - LOCAL:
 
-medicom.rest.url: http://localhost:8081
+nhs:
+  rest:
+    server-url: "http://localhost:8081"

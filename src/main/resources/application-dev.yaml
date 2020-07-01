@@ -10,4 +10,6 @@ spring:
 
 # REST API CONNECTION - REMOTE:
 
-medicom.rest.url: https://nhsbackend.myserverapps.com
+nhs:
+  rest:
+    server-url: "https://nhsbackend.myserverapps.com"
