@@ -20,18 +20,21 @@ public class RestConfig {
     @Value("${nhs.rest.credentials}")
     private String CREDENTIALS;
 
+    @Value("${nhs.rest.patients-uri}")
+    private String PATIENTS_URI;
+
 // Methods: ------------------------------------------------------------------------------------------------------------
 
-    public HttpHeaders buildAuthHeaders() {
+    public HttpHeaders buildAuthHeaders(String credentials) {
         HttpHeaders authHeaders = new HttpHeaders();
         authHeaders.add(
                 "Authorization",
-                "Basic " + buildEncodedCredentials());
+                "Basic " + buildEncodedCredentials(credentials));
         return authHeaders;
     }
 
-    public String buildEncodedCredentials() {
-        return new String(Base64.getEncoder().encode(CREDENTIALS.getBytes()));
+    public String buildEncodedCredentials(String credentials) {
+        return new String(Base64.getEncoder().encode(credentials.getBytes()));
     }
 
     public String getSERVER_URL() {
@@ -56,5 +59,13 @@ public class RestConfig {
 
     public void setCREDENTIALS(String CREDENTIALS) {
         this.CREDENTIALS = CREDENTIALS;
+    }
+
+    public String getPATIENTS_URI() {
+        return PATIENTS_URI;
+    }
+
+    public void setPATIENTS_URI(String PATIENTS_URI) {
+        this.PATIENTS_URI = PATIENTS_URI;
     }
 }

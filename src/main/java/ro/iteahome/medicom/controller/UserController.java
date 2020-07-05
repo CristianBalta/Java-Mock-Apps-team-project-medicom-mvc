@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ro.iteahome.medicom.model.dto.ConsultDTO;
 import ro.iteahome.medicom.model.dto.UserRegistrationDTO;
 import ro.iteahome.medicom.service.UserService;
 
@@ -36,5 +37,15 @@ public class UserController {
     public String addUser(@Valid UserRegistrationDTO userRegistrationDTO) {
         userService.addUser(userRegistrationDTO);
         return "home";
+    }
+
+    @PostMapping("/add-consult")
+    public void addConsult(ConsultDTO consultDTO) {
+        userService.addConsult(consultDTO);
+    }
+
+    @GetMapping("/find-Consults")
+    public ConsultDTO[] findConsults(String cnp) {
+        return userService.findAllConsults(cnp);
     }
 }
