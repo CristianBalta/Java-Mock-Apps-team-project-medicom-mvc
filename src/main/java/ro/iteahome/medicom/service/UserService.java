@@ -20,6 +20,8 @@ import ro.iteahome.medicom.model.entity.Role;
 import ro.iteahome.medicom.model.entity.User;
 import ro.iteahome.medicom.repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class UserService implements UserDetailsService {
 
@@ -72,14 +74,14 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    private ConsultDTO findAllConsults(String cnp) {
-        ResponseEntity<ConsultDTO> consultDTOResponse =
+    public ConsultDTO[] findAllConsults(String cnp) {
+        ResponseEntity<ConsultDTO[]> consultDTOResponse =
                 restTemplate.exchange(
                         restConfig.getSERVER_URL() + restConfig.getPATIENTS_URI() + "/find-consult/" + cnp,
                         HttpMethod.GET,
                         new HttpEntity<>(restConfig.buildAuthHeaders(restConfig.getCREDENTIALS())),
-                        ConsultDTO.class);
-        ConsultDTO consultDTO = consultDTOResponse.getBody();
+                        ConsultDTO[].class);
+        ConsultDTO[] consultDTO = consultDTOResponse.getBody();
         if (consultDTO != null) {
             return consultDTO;
         } else {
@@ -87,7 +89,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    private ConsultDTO addConsult(ConsultDTO consultDTO) {
+    public ConsultDTO addConsult(ConsultDTO consultDTO) {
         ResponseEntity<ConsultDTO> consultDTOResponseEntity =
                 restTemplate.exchange(
                         restConfig.getSERVER_URL() + restConfig.getPATIENTS_URI() + "/add-consult",
