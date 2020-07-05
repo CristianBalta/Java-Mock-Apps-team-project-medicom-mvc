@@ -47,12 +47,16 @@ public class UserService implements UserDetailsService {
 
 // C.R.U.D. METHODS: ---------------------------------------------------------------------------------------------------
 
-    public void addUser(UserRegistrationDTO userRegistrationDTO) {
+    public String addUser(UserRegistrationDTO userRegistrationDTO) {
         User user = modelMapper.map(userRegistrationDTO, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setStatus(1);
         setNhsRole(user);
-        userRepository.save(user);
+        if (isNhsDoctor(user.getCnp())){
+            userRepository.save(user);
+            return "home";
+        }
+        else {return "Not Nhs Registered User";}
     }
 
 // OTHER METHODS: ------------------------------------------------------------------------------------------------------
@@ -99,6 +103,15 @@ public class UserService implements UserDetailsService {
         return consultDTOResponseEntity.getBody();
     }
 
+    public String getInstitutions(String cnp){
+        ResponseEntity<String> institutionsResponse =
+                restTemplate.exchange(
+                        restConfig.getSERVER_URL() + restConfig.getDOCTORS_URI() + "/institution_cui" + cnp,
+                        HttpMethod.GET,
+                        new HttpEntity<>(restConfig.buildAuthHeaders(restConfig.getCREDENTIALS())),
+                        String.class);
+                return institutionsResponse.getBody();
+    }
 // OVERRIDDEN "UserDetailsService" METHODS: ----------------------------------------------------------------------------
 
     @Override
