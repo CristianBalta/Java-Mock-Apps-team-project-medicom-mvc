@@ -32,9 +32,14 @@ public class UserController {
         return "registration";
     }
 
-    @GetMapping("/find-Consults")
-    public String showAddForm(ConsultDTO consultDTO) {
+    @GetMapping("/find-consults")
+    public String showFindForm(ConsultDTO consultDTO) {
         return "consult/find-form";
+    }
+
+    @GetMapping("/add-consult")
+    public String showAddForm(ConsultDTO consultDTO) {
+        return "consult/add-form";
     }
 
 // METHODS: ------------------------------------------------------------------------------------------------------------
