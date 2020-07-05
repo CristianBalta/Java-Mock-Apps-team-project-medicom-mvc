@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import ro.iteahome.medicom.model.dto.ConsultDTO;
 import ro.iteahome.medicom.model.dto.UserRegistrationDTO;
 import ro.iteahome.medicom.service.UserService;
@@ -31,6 +32,11 @@ public class UserController {
         return "registration";
     }
 
+    @GetMapping("/find-Consults")
+    public String showAddForm(ConsultDTO consultDTO) {
+        return "consult/find-form";
+    }
+
 // METHODS: ------------------------------------------------------------------------------------------------------------
 
     @PostMapping("/registration")
@@ -44,8 +50,11 @@ public class UserController {
         userService.addConsult(consultDTO);
     }
 
-    @GetMapping("/find-Consults")
-    public ConsultDTO[] findConsults(String cnp) {
-        return userService.findAllConsults(cnp);
+    @GetMapping("/consult/by-cnp")
+    public ModelAndView findConsults(ConsultDTO consultDTO) {
+
+        return new ModelAndView("consult/home-consult")
+                .addObject(userService.findAllConsults(consultDTO.getPatient_cnp()));
+
     }
 }

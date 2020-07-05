@@ -1,15 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Home</title>
-    </head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/brand/m.png">
 
-    <body>
-        <a href="...">Search patient</a>
-        <br>
-        <a href="...">Create consult</a>
-        <br>
-        <a href="/logout">Sign out</a>
-    </body>
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="/assets/styles/form-design.css" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body class="text-center">
+
+
+<div class="form-design categories">
+    <img class="mb-4" src="/assets/brand/m.svg" alt="" width="156" height="156">
+    <h1 class="h3 mb-3 font-weight-normal">Home</h1>
+
+
+    <a href="/users/find-Consults">Find consult</a>
+    <br>
+    <a href="/logout" class="btn btn-lg btn-danger btn-block">Logout</a>
+</div>
+
+
+</body>
 </html>
