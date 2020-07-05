@@ -46,8 +46,7 @@ public class UserController {
 
     @PostMapping("/registration")
     public String addUser(@Valid UserRegistrationDTO userRegistrationDTO) {
-        userService.addUser(userRegistrationDTO);
-        return "home";
+        return userService.addUser(userRegistrationDTO);
     }
 
     @PostMapping("/add-consult")
