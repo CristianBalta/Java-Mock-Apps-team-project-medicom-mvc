@@ -12,4 +12,4 @@ spring:
 
 nhs:
   rest:
-    server-url: "http://localhost:8081"
+    server-url: "https://nhsbackend.myserverapps.com"
