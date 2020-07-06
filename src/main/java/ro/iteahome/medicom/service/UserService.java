@@ -93,13 +93,13 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public Boolean addConsult(ConsultDTO consultDTO) {
-        ResponseEntity<Boolean> consultDTOResponseEntity =
+    public ConsultDTO addConsult(ConsultDTO consultDTO) {
+        ResponseEntity<ConsultDTO> consultDTOResponseEntity =
                 restTemplate.exchange(
                         restConfig.getSERVER_URL() + restConfig.getPATIENTS_URI() + "/add-consult",
                         HttpMethod.POST,
                         new HttpEntity<>(consultDTO, restConfig.buildAuthHeaders(restConfig.getCREDENTIALS())),
-                        Boolean.class);
+                        ConsultDTO.class);
         return consultDTOResponseEntity.getBody();
     }
 
