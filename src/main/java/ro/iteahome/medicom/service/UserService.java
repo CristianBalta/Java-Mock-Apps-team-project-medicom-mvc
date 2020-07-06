@@ -19,8 +19,10 @@ import ro.iteahome.medicom.model.dto.UserRegistrationDTO;
 import ro.iteahome.medicom.model.entity.Role;
 import ro.iteahome.medicom.model.entity.User;
 import ro.iteahome.medicom.repository.UserRepository;
+import ro.iteahome.medicom.utils.ConsultList;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -78,16 +80,16 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public ConsultDTO[] findAllConsults(String cnp) {
-        ResponseEntity<ConsultDTO[]> consultDTOResponse =
+    public List<ConsultDTO> findAllConsults(String cnp) {
+        ResponseEntity<ConsultList> consultDTOResponse =
                 restTemplate.exchange(
                         restConfig.getSERVER_URL() + restConfig.getPATIENTS_URI() + "/find-consult/" + cnp,
                         HttpMethod.GET,
                         new HttpEntity<>(restConfig.buildAuthHeaders(restConfig.getCREDENTIALS())),
-                        ConsultDTO[].class);
-        ConsultDTO[] consultDTO = consultDTOResponse.getBody();
-        if (consultDTO != null) {
-            return consultDTO;
+                        ConsultList.class);
+        List<ConsultDTO> consultDTOList = Objects.requireNonNull(consultDTOResponse.getBody()).getConsultDTOList();
+        if (consultDTOList != null) {
+            return consultDTOList;
         } else {
             throw new GlobalNotFoundException("Consult");
         }
