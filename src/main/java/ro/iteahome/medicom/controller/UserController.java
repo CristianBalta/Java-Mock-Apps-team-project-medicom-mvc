@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ro.iteahome.medicom.model.dto.ConsultDTO;
 import ro.iteahome.medicom.model.dto.UserRegistrationDTO;
+import ro.iteahome.medicom.model.entity.User;
 import ro.iteahome.medicom.service.UserService;
 
 import javax.validation.Valid;
@@ -39,6 +40,11 @@ public class UserController {
     @GetMapping("/add-consult")
     public String showAddForm(ConsultDTO consultDTO) {
         return "consult/add-form";
+    }
+
+    @GetMapping("/institution-screen")
+    public String[] getInstitutionScreen (User user) {
+        return userService.getInstitutions(user.getCnp());
     }
 
 // METHODS: ------------------------------------------------------------------------------------------------------------

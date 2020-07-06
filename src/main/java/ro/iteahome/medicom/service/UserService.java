@@ -18,6 +18,8 @@ import ro.iteahome.medicom.model.entity.Role;
 import ro.iteahome.medicom.model.entity.User;
 import ro.iteahome.medicom.repository.UserRepository;
 
+import java.util.Objects;
+
 @Service
 public class UserService implements UserDetailsService {
 
@@ -74,14 +76,15 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public String getInstitutions(String cnp){
+    public String[] getInstitutions(String cnp){
         ResponseEntity<String> institutionsResponse =
                 restTemplate.exchange(
                         restConfig.getSERVER_URL() + restConfig.getDOCTORS_URI() + "/institution_cui" + cnp,
                         HttpMethod.GET,
                         new HttpEntity<>(restConfig.buildAuthHeaders(restConfig.getCREDENTIALS())),
                         String.class);
-                return institutionsResponse.getBody();
+                String cuiList = institutionsResponse.getBody();
+                return Objects.requireNonNull(cuiList).split(",");
     }
 // OVERRIDDEN "UserDetailsService" METHODS: ----------------------------------------------------------------------------
 
