@@ -8,7 +8,7 @@
     <!-- Bootstrap core CSS -->
     <link href="/assets/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="/assets/styles/form-design.css.css" rel="stylesheet">
+    <link href="/assets/styles/form-design.css" rel="stylesheet">
 
 
 </head>
@@ -38,7 +38,8 @@
     </thead>
     <tbody>
 
-    <tr th:each="consultDTO : ${consultDTOList}">
+        <tr th:each="consultDTO : ${consultDTOList}">
+
 
         <td th:text="${consultDTO.date}"></td>
         <td th:text="${consultDTO.patient_cnp}"></td>

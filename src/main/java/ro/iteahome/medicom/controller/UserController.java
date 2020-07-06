@@ -12,6 +12,8 @@ import ro.iteahome.medicom.model.dto.UserRegistrationDTO;
 import ro.iteahome.medicom.service.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -50,8 +52,10 @@ public class UserController {
     }
 
     @PostMapping("/add-consult")
-    public void addConsult(ConsultDTO consultDTO) {
-        userService.addConsult(consultDTO);
+    public ModelAndView addConsult(ConsultDTO consultDTO) {
+        ArrayList<ConsultDTO> consultDTOList = new ArrayList<>();
+        consultDTOList.add(userService.addConsult(consultDTO));
+        return new ModelAndView("consult/home-consult").addObject(consultDTOList);
     }
 
     @GetMapping("/consult/by-cnp")
