@@ -12,18 +12,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ro.iteahome.medicom.config.rest.RestConfig;
-import ro.iteahome.medicom.exception.business.GlobalNotFoundException;
 import ro.iteahome.medicom.exception.business.NotNhsRegisteredException;
-import ro.iteahome.medicom.model.dto.ConsultDTO;
 import ro.iteahome.medicom.model.dto.UserRegistrationDTO;
 import ro.iteahome.medicom.model.entity.Role;
 import ro.iteahome.medicom.model.entity.User;
 import ro.iteahome.medicom.repository.UserRepository;
-import ro.iteahome.medicom.utils.ConsultList;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -79,26 +72,6 @@ public class UserService implements UserDetailsService {
         } else {
             throw new NotNhsRegisteredException();
         }
-    }
-
-    public ArrayList<ConsultDTO> findAllConsults(String cnp) {
-        ResponseEntity<ConsultList> consultDTOResponse =
-                restTemplate.exchange(
-                        restConfig.getSERVER_URL() + restConfig.getPATIENTS_URI() + "/find-consult/" + cnp,
-                        HttpMethod.GET,
-                        new HttpEntity<>(restConfig.buildAuthHeaders(restConfig.getCREDENTIALS())),
-                        ConsultList.class);
-        return Objects.requireNonNull(consultDTOResponse.getBody()).getConsultDTOList();
-    }
-
-    public ConsultDTO addConsult(ConsultDTO consultDTO) {
-        ResponseEntity<ConsultDTO> consultDTOResponseEntity =
-                restTemplate.exchange(
-                        restConfig.getSERVER_URL() + restConfig.getPATIENTS_URI() + "/add-consult",
-                        HttpMethod.POST,
-                        new HttpEntity<>(consultDTO, restConfig.buildAuthHeaders(restConfig.getCREDENTIALS())),
-                        ConsultDTO.class);
-        return consultDTOResponseEntity.getBody();
     }
 
     public String getInstitutions(String cnp){
