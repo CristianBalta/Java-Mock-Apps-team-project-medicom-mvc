@@ -21,6 +21,7 @@ import ro.iteahome.medicom.model.entity.User;
 import ro.iteahome.medicom.repository.UserRepository;
 import ro.iteahome.medicom.utils.ConsultList;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,19 +81,14 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<ConsultDTO> findAllConsults(String cnp) {
+    public ArrayList<ConsultDTO> findAllConsults(String cnp) {
         ResponseEntity<ConsultList> consultDTOResponse =
                 restTemplate.exchange(
                         restConfig.getSERVER_URL() + restConfig.getPATIENTS_URI() + "/find-consult/" + cnp,
                         HttpMethod.GET,
                         new HttpEntity<>(restConfig.buildAuthHeaders(restConfig.getCREDENTIALS())),
                         ConsultList.class);
-        List<ConsultDTO> consultDTOList = Objects.requireNonNull(consultDTOResponse.getBody()).getConsultDTOList();
-        if (consultDTOList != null) {
-            return consultDTOList;
-        } else {
-            throw new GlobalNotFoundException("Consult");
-        }
+        return Objects.requireNonNull(consultDTOResponse.getBody()).getConsultDTOList();
     }
 
     public ConsultDTO addConsult(ConsultDTO consultDTO) {
