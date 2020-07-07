@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Medicom Home</title>
+    <title>Medicom Find Patient</title>
     <link rel="shortcut icon" type="image/png" href="/assets/brand/m.png">
 
     <!-- Bootstrap core CSS -->
@@ -17,16 +17,14 @@
 
 <body class="text-center form-design" style="padding: 0px">
 
-<div class="form-design" th:fragment="categories" style="padding: 0px">
+<div class="form-design" style="padding: 0px">
     <img class="mb-4" src="/assets/brand/m.svg" alt="" width="156" height="156">
-    <h1 class="h3 mb-3 font-weight-normal">Medicom</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Medicom Find Patient</h1>
 
-    <a href="/users/add-consult" class="btn btn-lg btn-primary btn-block">Create Consult</a>
     <br>
-    <a href="/users/find-consults" class="btn btn-lg btn-primary btn-block">Find Consult</a>
     <br>
-    <a href="..." class="btn btn-lg btn-primary btn-block">Find Patient</a>
-    <br>
+    <a href="/users/patient/by-cnp" class="btn btn-lg btn-primary btn-block">Find Patient</a>
+
 </div>
 <a href="/logout" class="btn btn-lg btn-danger btn-block">Logout</a>
 <br>
