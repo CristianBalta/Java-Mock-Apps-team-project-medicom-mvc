@@ -30,14 +30,13 @@
 
     <div class="form-label-group">
         <input id="patient_cnp" name="patient_cnp" th:field="*{patient_cnp}" type="text" class="form-control"
-               placeholder="Patient CNP" autofocus>
+               placeholder="Patient CNP" hidden>
         <span th:errors="*{patient_cnp}" th:if="${#fields.hasErrors('patient_cnp')}"></span>
-        <label for="patient_cnp">Patient CNP</label>
     </div>
 
     <div class="form-label-group">
         <input id="doctor_cnp" name="doctor_cnp" th:field="*{doctor_cnp}" type="text" class="form-control"
-               placeholder="Doctor CNP">
+               placeholder="Doctor CNP" autofocus>
         <span th:errors="*{doctor_cnp}" th:if="${#fields.hasErrors('doctor_cnp')}"></span>
         <label for="patient_cnp">Doctor CNP</label>
     </div>
@@ -90,10 +89,20 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">Add Consult</button>
 
     <br><br>
-    <a href="/home" class="btn btn-lg btn-secondary btn-block">Go back</a>
-    <br><br>
+</form>
+<form class="form-design" method="GET" th:action="@{/users/find-patient}" th:object="${patientDTO}">
 
-    <p class="mt-5 mb-3 text-muted">&copy; 2020</p></form>
+    <div class="form-label-group">
+        <input name="cnp" th:field="*{cnp}" type="text" class="form-control"
+               placeholder="Patient CNP" hidden>
+        <span th:errors="*{cnp}" th:if="${#fields.hasErrors('cnp')}"></span>
+    </div>
+    <br>
+    <button class="btn btn-lg btn-secondary btn-block" type="submit">Go Back</button>
+</form>
+<br><br>
+
+<p class="mt-5 mb-3 text-muted">&copy; 2020</p>
 
 </body>
 </html>

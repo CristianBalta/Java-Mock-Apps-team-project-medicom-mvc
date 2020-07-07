@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Medicom Consult</title>
-    <link rel="shortcut icon" type="image/png" href="../assets/brand/m.png">
+    <title>Medicom Patient Consult</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/brand/m.png">
     <!-- Bootstrap core CSS -->
     <link href="/assets/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -15,10 +15,10 @@
 
 <body class="text-center form-design">
 <div class="form-design">
-    <div th:include="home :: categories"></div>
-
-
+    <img class="mb-4" src="/assets/brand/m.svg" alt="" width="156" height="156">
+    <h1 class="h3 mb-3 font-weight-normal">Medicom Patient Consult</h1>
 </div>
+
 <br>
 <h1 class="h3 mb-3 font-weight-normal contents">Your last Consult request result:</h1>
 <br>
@@ -38,7 +38,7 @@
     </thead>
     <tbody>
 
-        <tr th:each="consultDTO : ${consultDTOList}">
+    <tr th:each="consultDTO : ${consultDTOList}">
 
 
         <td th:text="${consultDTO.date}"></td>
@@ -55,13 +55,21 @@
     </tbody>
 </table>
 <br>
-<a class="btn btn-lg btn-primary btn-block form-nhs " style="padding : 0.5rem 1rem" href="/home">Clear
-    Result</a>
+<form class="form-design" method="GET" th:action="@{/users/find-patient}" th:object="${patientDTO}">
+
+    <div class="form-label-group">
+        <input name="cnp" th:field="*{cnp}" type="text" class="form-control"
+               placeholder="Patient CNP" hidden>
+        <span th:errors="*{cnp}" th:if="${#fields.hasErrors('cnp')}"></span>
+    </div>
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Clear Result</button>
+</form>
 <br>
+
 <a href="/logout" class="btn btn-lg btn-danger btn-block">Logout</a>
 <br>
 <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
-
 </body>
 </html>
 
