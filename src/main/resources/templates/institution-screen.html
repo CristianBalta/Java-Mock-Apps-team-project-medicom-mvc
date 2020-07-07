@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Medicom Home</title>
+    <title>Medicom Institution Screen</title>
     <link rel="shortcut icon" type="image/png" href="/assets/brand/m.png">
-
     <!-- Bootstrap core CSS -->
-    <link href="/assets/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
-
+    <link href="/assets/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="/assets/styles/form-design.css" rel="stylesheet" type="text/css">
+    <link href="/assets/styles/form-design.css" rel="stylesheet">
 
 
 </head>
@@ -19,14 +17,11 @@
 
 <div class="form-design" th:fragment="categories" style="padding: 0px">
     <img class="mb-4" src="/assets/brand/m.svg" alt="" width="156" height="156">
-    <h1 class="h3 mb-3 font-weight-normal">Medicom</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Medicom Institution Screen</h1>
 
-    <a href="/users/add-consult" class="btn btn-lg btn-primary btn-block">Create Consult</a>
-    <br>
-    <a href="/users/find-consults" class="btn btn-lg btn-primary btn-block">Find Consult</a>
-    <br>
-    <a href="..." class="btn btn-lg btn-primary btn-block">Find Patient</a>
-    <br>
+    <a class="h3 mb-3 font-weight-normal" th:each="cui : ${cuiArray}" th:text="${cui}"></a>
+
+
 </div>
 <a href="/logout" class="btn btn-lg btn-danger btn-block">Logout</a>
 <br>
@@ -35,3 +30,4 @@
 
 </body>
 </html>
+
