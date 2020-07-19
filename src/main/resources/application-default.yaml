@@ -4,7 +4,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:46.214.32.248}/medicom
+    url: jdbc:mysql://${MYSQL_HOST:xx.xxx.xx.xxx}/medicom
     username: "medicom"
     password: "@Medicom@3"
 
